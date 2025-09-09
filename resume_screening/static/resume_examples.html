@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #D6E6FE, #E5D5FE);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "•";
+            color: red;
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .button {
+            background: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background: #007bff;
+            color: white;
+        }
+        .template {
+            display: none;
+            background: #f1f1f1;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            margin-top: 15px;
+        }
+        .highlight {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .section-title {
+            color: #28a745;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Resume Examples</h1>
+        <p>Select a template to view and copy.</p>
+
+        <!-- Professional Resume -->
+        <h2>Professional Resume</h2>
+        <button class="button" onclick="toggleTemplate('professional')">View Example</button>
+        <div id="professional" class="template">
+            <span class="highlight">[Your Name]</span>
+            [Your Address]
+            [Your Email] | [Your Phone]
+            [LinkedIn Profile]
+
+            <span class="section-title">Objective:</span>
+            Results-driven professional with <span class="highlight">[X years]</span> of experience in <span class="highlight">[Industry]</span>.
+            Seeking to leverage expertise in <span class="highlight">[Key Skills]</span> to contribute to <span class="highlight">[Company Name]</span>.
+
+            <span class="section-title">Experience:</span>
+            <span class="highlight">[Job Title]</span> | [Company Name] | [Years]
+            - Led a team of <span class="highlight">[Number]</span> professionals to achieve <span class="highlight">[Key Achievement]</span>.
+            - Optimized <span class="highlight">[Process/Task]</span> to increase efficiency by <span class="highlight">[Percentage]</span>.
+
+            <span class="section-title">Education:</span>
+            <span class="highlight">[Degree]</span> | [University Name] | [Graduation Year]
+
+            <span class="section-title">Skills:</span>
+            - <span class="highlight">[Skill 1]</span>
+            - <span class="highlight">[Skill 2]</span>
+            - <span class="highlight">[Skill 3]</span>
+
+            <span class="section-title">Certifications:</span>
+            - <span class="highlight">[Certification Name]</span>
+
+            <span class="section-title">Projects:</span>
+            - <span class="highlight">[Project Name]</span> - [Brief Description]
+        </div>
+
+        <!-- Entry-Level Resume -->
+        <h2>Entry-Level Resume</h2>
+        <button class="button" onclick="toggleTemplate('entry')">View Example</button>
+        <div id="entry" class="template">
+            <span class="highlight">[Your Name]</span>
+            [Your Address]
+            [Your Email] | [Your Phone]
+            [LinkedIn Profile]
+
+            <span class="section-title">Objective:</span>
+            Recent graduate with a <span class="highlight">[Degree]</span> in <span class="highlight">[Field]</span> from <span class="highlight">[University Name]</span>,
+            eager to apply knowledge in <span class="highlight">[Relevant Area]</span>.
+
+            <span class="section-title">Education:</span>
+            <span class="highlight">[Degree]</span> | [University Name] | [Graduation Year]
+
+            <span class="section-title">Internship Experience:</span>
+            <span class="highlight">[Internship Position]</span> | [Company Name] | [Duration]
+            - Assisted in <span class="highlight">[Project/Task]</span>, leading to <span class="highlight">[Impact]</span>.
+
+            <span class="section-title">Skills:</span>
+            - <span class="highlight">[Skill 1]</span>
+            - <span class="highlight">[Skill 2]</span>
+            - <span class="highlight">[Skill 3]</span>
+
+            <span class="section-title">Projects:</span>
+            - <span class="highlight">[Project Name]</span> - [Brief Description]
+        </div>
+    </div>
+
+    <script>
+        function toggleTemplate(id) {
+            let template = document.getElementById(id);
+            if (template.style.display === "none" || template.style.display === "") {
+                template.style.display = "block";
+            } else {
+                template.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

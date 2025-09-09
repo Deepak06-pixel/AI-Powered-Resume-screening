@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #D6E6FE, #E5D5FE);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "•";
+            color: red;
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .button {
+            background: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background: #007bff;
+            color: white;
+        }
+        .template {
+            display: none;
+            background: #f1f1f1;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cover Letter Examples</h1>
+        <p>Select a template to view and copy.</p>
+
+        <h2>General Cover Letter</h2>
+        <button class="button" onclick="toggleTemplate('general')">View Example</button>
+        <div id="general" class="template">
+            [Your Name]
+            [Your Address]
+            [Your Email] | [Your Phone]
+            [Date]
+
+            Hiring Manager
+            [Company Name]
+            [Company Address]
+
+            Dear Hiring Manager,
+
+            I am excited to apply for the [Job Position] at [Company Name]. With my experience in [Your Field], I am confident that my skills align perfectly with the job requirements.
+
+            Throughout my career, I have developed expertise in [Mention Key Skills]. My ability to [Highlight Strengths] has allowed me to contribute significantly in previous roles.
+
+            I would appreciate the opportunity to discuss my qualifications further. Please feel free to contact me at your convenience.
+
+            Best Regards,
+            [Your Name]
+        </div>
+
+        <h2>Entry-Level Cover Letter</h2>
+        <button class="button" onclick="toggleTemplate('entry')">View Example</button>
+        <div id="entry" class="template">
+            [Your Name]
+            [Your Address]
+            [Your Email] | [Your Phone]
+            [Date]
+
+            Hiring Manager
+            [Company Name]
+            [Company Address]
+
+            Dear Hiring Manager,
+
+            I am writing to express my interest in the [Job Position] role at [Company Name]. As a recent graduate with a [Your Degree] from [University Name], I am eager to apply my knowledge and enthusiasm to your team.
+
+            During my studies, I developed skills in [Relevant Skills], and my internship at [Previous Company] strengthened my ability to [Highlight Key Experience]. I am excited to bring my passion and dedication to your organization.
+
+            Thank you for your time and consideration. I look forward to the opportunity to discuss my qualifications.
+
+            Best Regards,
+            [Your Name]
+        </div>
+        <h2>Experienced Professional Cover Letter</h2>
+        <button class="button" onclick="toggleTemplate('experienced')">View Example</button>
+        <div id="experienced" class="template hidden">
+            <p>
+                [Your Name]
+                [Your Address]
+                [Your Email] | [Your Phone]
+                [Date]
+
+                Hiring Manager
+                [Company Name]
+                [Company Address]
+
+                Dear Hiring Manager,
+
+                With over [X] years of experience in [Industry], I am excited to apply for the [Job Position] at [Company Name]. My expertise in [Key Skills] has allowed me to drive [Highlight Key Achievements].
+
+                In my current role at [Current Company], I have successfully [Describe Accomplishments]. I am confident that my background in [Industry] makes me a valuable asset to your team.
+
+                I welcome the opportunity to discuss my qualifications further. Please feel free to contact me at your convenience.
+
+                Best Regards,
+                [Your Name]
+            </p>
+        </div>
+
+        <h2>Technical Cover Letter (IT & Engineering)</h2>
+        <button class="button" onclick="toggleTemplate('technical')">View Example</button>
+        <div id="technical" class="template hidden">
+            <p>
+                [Your Name]
+                [Your Address]
+                [Your Email] | [Your Phone]
+                [Date]
+
+                Hiring Manager
+                [Company Name]
+                [Company Address]
+
+                Dear Hiring Manager,
+
+                I am excited to apply for the [Job Position] at [Company Name]. With a strong background in [Technical Skills, e.g., Python, Data Analysis, Software Engineering], I am confident in my ability to contribute to your team.
+
+                At [Previous Company], I worked on [Projects or Systems You Built]. My expertise in [Specific Tools/Software] has allowed me to streamline processes and improve efficiency.
+
+                I look forward to discussing how my skills align with your company's goals. Please contact me at your earliest convenience.
+
+                Best Regards,
+                [Your Name]
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTemplate(id) {
+            let template = document.getElementById(id);
+            if (template.style.display === "none" || template.style.display === "") {
+                template.style.display = "block";
+            } else {
+                template.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

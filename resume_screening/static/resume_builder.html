@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #D6E6FE, #E5D5FE);
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 850px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 { color: #333; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea { height: 80px; resize: none; }
+        .button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .generate-btn { background: #007bff; color: white; }
+        .generate-btn:hover { background: #0056b3; }
+        .download-btn { background: #28a745; color: white; }
+        .download-btn:hover { background: #218838; }
+        .resume {
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .resume h1 { font-size: 24px; text-transform: uppercase; color: #333; }
+        .resume h3 { color: #007bff; margin-top: 15px; }
+        .resume p, .resume li { font-size: 14px; color: #333; }
+        .resume ul { padding-left: 20px; }
+        .section-divider { border-bottom: 2px solid #ccc; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>ATS Resume Builder</h2>
+        <form id="resumeForm">
+            <h3>Personal Information</h3>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+            <input type="text" id="linkedin" placeholder="LinkedIn Profile URL">
+            <input type="text" id="github" placeholder="GitHub Profile URL">
+            <input type="text" id="website" placeholder="Portfolio/Website URL">
+
+            <h3>Summary</h3>
+            <textarea id="summary" placeholder="Brief Summary about yourself" required></textarea>
+
+            <h3>Technical Skills</h3>
+            <textarea id="technicalSkills" placeholder="List technical skills (comma-separated)" required></textarea>
+
+            <h3>Soft Skills</h3>
+            <textarea id="softSkills" placeholder="List soft skills (comma-separated)" required></textarea>
+
+            <h3>Work Experience</h3>
+            <textarea id="experience" placeholder="Job Title - Company - Location - Duration - Responsibilities" required></textarea>
+
+            <h3>Education</h3>
+            <textarea id="education" placeholder="Degree - University - Location - Year of Completion" required></textarea>
+
+            <h3>Certifications</h3>
+            <textarea id="certifications" placeholder="Relevant Certifications (comma-separated)" required></textarea>
+
+            <h3>Projects & Publications</h3>
+            <textarea id="projects" placeholder="Notable projects with links" required></textarea>
+
+            <h3>Languages</h3>
+            <textarea id="languages" placeholder="Spoken/Written Languages (comma-separated)" required></textarea>
+
+            <h3>Resume Keywords</h3>
+            <textarea id="keywords" placeholder="Relevant keywords for ATS (comma-separated)" required></textarea>
+
+            <button class="button generate-btn" type="button" onclick="generateResume()">Generate Resume</button>
+        </form>
+
+        <div id="resumeOutput" class="resume"></div>
+
+        <button class="button download-btn" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+
+    <script>
+        function generateResume() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const linkedin = document.getElementById('linkedin').value;
+            const github = document.getElementById('github').value;
+            const website = document.getElementById('website').value;
+            const summary = document.getElementById('summary').value;
+            const technicalSkills = document.getElementById('technicalSkills').value.split(',').map(s => `<li>${s.trim()}</li>`).join('');
+            const softSkills = document.getElementById('softSkills').value.split(',').map(s => `<li>${s.trim()}</li>`).join('');
+            const experience = document.getElementById('experience').value.split('\n').map(exp => `<p>${exp}</p>`).join('');
+            const education = document.getElementById('education').value.split('\n').map(edu => `<p>${edu}</p>`).join('');
+            const certifications = document.getElementById('certifications').value.split(',').map(cert => `<p>${cert.trim()}</p>`).join('');
+            const projects = document.getElementById('projects').value.split('\n').map(proj => `<p>${proj}</p>`).join('');
+            const languages = document.getElementById('languages').value.split(',').map(lang => `<p>${lang.trim()}</p>`).join('');
+            const keywords = document.getElementById('keywords').value.split(',').map(key => `<p>${key.trim()}</p>`).join('');
+
+            document.getElementById('resumeOutput').innerHTML = `
+                <h1>${name}</h1>
+                <p>${email} | ${phone} | <a href="${linkedin}">LinkedIn</a> | <a href="${github}">GitHub</a> | <a href="${website}">Portfolio</a></p>
+                <div class="section-divider"></div>
+                <h3>Summary</h3><p>${summary}</p>
+                <div class="section-divider"></div>
+                <h3>Technical Skills</h3><ul>${technicalSkills}</ul>
+                <h3>Soft Skills</h3><ul>${softSkills}</ul>
+                <h3>Work Experience</h3>${experience}
+                <h3>Education</h3>${education}
+                <h3>Certifications</h3>${certifications}
+                <h3>Projects</h3>${projects}
+                <h3>Languages</h3>${languages}
+                <h3>Keywords</h3>${keywords}
+            `;
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text(document.getElementById('resumeOutput').innerText, 10, 10);
+            doc.save("ATS_Resume.pdf");
+        }
+    </script>
+</body>
+</html>

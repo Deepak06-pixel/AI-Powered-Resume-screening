@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #D6E6FE, #E5D5FE);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center mt-4" style="font-weight:bold; margin-bottom:20px;"> ATS Analytics Dashboard</h2>
+
+
+        <!-- ✅ 2x2 Grid Layout -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4> Candidate Ranking Chart</h4>
+                    <canvas id="rankingChart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Resume Distribution by Education Level</h4>
+                    <canvas id="educationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Most Common Skills</h4>
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Resume Sentiment Analysis</h4>
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- ✅ JavaScript to Fetch Data & Render Charts -->
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                    // ✅ Fetch Candidate Ranking Data
+                    fetch("/ranking_chart/")
+                    .then(response => response.json())
+                    .then(data => {
+                        let uniqueCandidates = [];
+                        let uniqueScores = [];
+
+                        // ✅ Ensure we always display 10 candidates
+                        data.candidates.forEach((name, index) => {
+                            if (uniqueCandidates.length < 10 && !uniqueCandidates.includes(name)) {
+                                uniqueCandidates.push(name);
+                                uniqueScores.push(data.scores[index]);
+                            }
+                        });
+
+                        // ✅ Fill with placeholders if we have less than 10
+                        while (uniqueCandidates.length < 10) {
+                            uniqueCandidates.push("Unnamed Candidate");
+                            uniqueScores.push(0);
+                        }
+
+                        var ctx = document.getElementById("rankingChart").getContext("2d");
+                        new Chart(ctx, {
+                            type: "bar",
+                            data: {
+                                labels: uniqueCandidates,
+                                datasets: [{
+                                    label: "Ranking Scores",
+                                    data: uniqueScores,
+                                    backgroundColor: ["#76D7C4", "#F1948A", "#85C1E9", "#F9E79F", "#D7BDE2",
+                                                      "#7DCEA0", "#F5B7B1", "#85C1E9", "#F4D03F", "#F1948A"],
+                                    borderColor: "rgba(75, 192, 192, 1)",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: { y: { beginAtZero: true } }
+                            }
+                        });
+                    })
+                    .catch(error => console.error("Error loading ranking data:", error));
+
+                    // ✅ Fetch Data for Other Charts
+                    fetch("/analytics_dashboard/")
+                    .then(response => response.json())
+                    .then(data => {
+                        // ✅ Skills Chart
+                        new Chart(document.getElementById("skillsChart").getContext("2d"), {
+                            type: "bar",
+                            data: {
+                                labels: data.skills,
+                                datasets: [{
+                                    label: "Skill Frequency",
+                                    data: data.skill_freqs,
+                                    backgroundColor: "#76D7C4"
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+
+                        // ✅ Education Level Distribution
+                        new Chart(document.getElementById("educationChart").getContext("2d"), {
+                            type: "pie",
+                            data: {
+                                labels: data.education_levels,
+                                datasets: [{
+                                    data: data.education_counts,
+                                    backgroundColor: ["#F1C40F", "#2ECC71", "#3498DB", "#E74C3C","#2C3E50"]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+
+                        // ✅ Sentiment Analysis
+                        new Chart(document.getElementById("sentimentChart").getContext("2d"), {
+                            type: "doughnut",
+                            data: {
+                                labels: ["Positive", "Neutral", "Negative"],
+                                datasets: [{
+                                    data: [data.sentiments.Positive, data.sentiments.Neutral, data.sentiments.Negative],
+                                    backgroundColor: ["#2ECC71", "#F1C40F", "#E74C3C"]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    })
+                    .catch(error => console.error("Error fetching analytics data:", error));
+                });
+    </script>
+
+
+
+</body>
+</html>

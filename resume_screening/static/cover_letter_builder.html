@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #D6E6FE, #E5D5FE);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h1, h2 { color: #335; }
+        label { font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #0056b3; }
+        .cover-letter {
+            margin-top: 20px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cover Letter Builder</h1>
+
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" placeholder="Enter your email">
+
+        <label for="phone">Your Phone:</label>
+        <input type="text" id="phone" placeholder="Enter your phone number">
+
+        <label for="date">Date:</label>
+        <input type="date" id="date">
+
+        <label for="company">Company Name:</label>
+        <input type="text" id="company" placeholder="Enter company name">
+
+        <label for="position">Job Position:</label>
+        <input type="text" id="position" placeholder="Enter job position">
+
+        <label for="message">Why You're a Good Fit:</label>
+        <textarea id="message" rows="5" placeholder="Describe why you're the best candidate"></textarea>
+
+        <button onclick="generateCoverLetter()">Generate Cover Letter</button>
+
+        <div class="cover-letter" id="coverLetterOutput" style="display: none;">
+            <h2>Cover Letter Preview</h2>
+            <p id="letterContent"></p>
+            <button onclick="downloadCoverLetter()">Download as Text File</button>
+        </div>
+    </div>
+
+    <script>
+        function generateCoverLetter() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const date = document.getElementById("date").value;
+            const company = document.getElementById("company").value;
+            const position = document.getElementById("position").value;
+            const message = document.getElementById("message").value;
+
+            if (!name || !email || !phone || !date || !company || !position || !message) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            const coverLetter = `
+            ${name}
+            ${email} | ${phone}
+            ${date}
+
+            Hiring Manager
+            ${company}
+
+            Dear Hiring Manager,
+
+            I am excited to apply for the position of ${position} at ${company}. With my experience and passion for this field, I believe I am an excellent fit for this role.
+
+            ${message}
+
+            I would love the opportunity to further discuss how I can contribute to your team. Please feel free to contact me at your earliest convenience.
+
+            Best Regards,
+            ${name}
+            `;
+
+            document.getElementById("letterContent").innerText = coverLetter;
+            document.getElementById("coverLetterOutput").style.display = "block";
+        }
+
+        function downloadCoverLetter() {
+            const text = document.getElementById("letterContent").innerText;
+            const blob = new Blob([text], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "Cover_Letter.txt";
+            a.click();
+        }
+    </script>
+</body>
+</html>
